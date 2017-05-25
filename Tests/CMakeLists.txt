@@ -25,7 +25,9 @@ set (${PROJECT_NAME}_TEST_SOURCES
 
 # Create create executable
 add_executable(${PROJECT_NAME}Tests ${${PROJECT_NAME}_TEST_SOURCES})
-target_link_libraries(${PROJECT_NAME}Tests ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME}Tests 
+    ${PROJECT_NAME}
+)
 
 # Register test
 add_test(${PROJECT_NAME}Tests ${PROJECT_NAME}Tests)

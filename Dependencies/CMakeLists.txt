@@ -1,59 +1,34 @@
+if(EXISTS ${PROJECT_SOURCE_DIR}/Dependencies/cxx-log/CMakeLists.txt)
 
-# Enable ExternalProject CMake module
-include(ExternalProject)
+    # Include cxx-log
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/cxx-log)
 
-# --- Logs ---
+    # Include sources
+    include_directories(${PROJECT_SOURCE_DIR}/Dependencies/cxx-log/Sources)
 
-# cxxlog version
-set(cxx-logs-VERSION master)
+endif()
 
-# Download and install swarm commons
-ExternalProject_Add(
-    cxx-logs
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/volatile
-    GIT_REPOSITORY git@github.com:lib-cxx/cxx-log.git
-    GIT_TAG "${swarm-commons-VERSION}"
-    INSTALL_COMMAND ""
-)
+if(EXISTS ${PROJECT_SOURCE_DIR}/Dependencies/swarm-commons/CMakeLists.txt)
 
-# Set cxxlog variable
-set(cxx-logs-INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/volatile/src/cxx-logs/Sources PARENT_SCOPE)
+    # Include swarm-commons
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/swarm-commons)
 
-# --- Swarm commons ---
+    # Include sources
+    include_directories(${PROJECT_SOURCE_DIR}/Dependencies/swarm-commons/Sources)
 
-# swarm commons version
-set(swarm-commons-VERSION dev)
+endif()
 
-# Download and install swarm commons
-ExternalProject_Add(
-    swarm-commons
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/volatile
-    GIT_REPOSITORY git@github.com:swarm-framework/swarm-commons.git
-    GIT_TAG "${swarm-commons-VERSION}"
-    INSTALL_COMMAND ""
-)
+if(EXISTS ${PROJECT_SOURCE_DIR}/Dependencies/swarm-http-api/CMakeLists.txt)
 
-# Set swarm commons variable
-set(swarm-commons_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/volatile/src/swarm-commons/Sources PARENT_SCOPE)
+    # Include swarm-http-api
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/swarm-http-api)
 
-# --- Swarm HTTP API ---
+    # Include sources
+    include_directories(${PROJECT_SOURCE_DIR}/Dependencies/swarm-http-api/Sources)
 
-# swarm api version
-set(swarm-http-api-VERSION dev)
+endif()
 
-# Download and install swarm api
-ExternalProject_Add(
-    swarm-http-api
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/volatile
-    GIT_REPOSITORY git@github.com:swarm-framework/swarm-http-api.git
-    GIT_TAG "${swarm-http-api-VERSION}"
-    INSTALL_COMMAND ""
-)
-
-# Set swarm api variable
-set(swarm-http-api_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/volatile/src/swarm-http-api/Sources PARENT_SCOPE)
-
-# --- Curl ---
+# --- Find Curl package ---
 
 # Find Curl
 find_package(CURL REQUIRED)
