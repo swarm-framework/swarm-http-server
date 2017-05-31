@@ -32,6 +32,12 @@ namespace swarm {
             return *this;
         }
 
+        // Set message
+        StandardErrorBuilder &StandardErrorBuilder::message(const std::string &msg) {
+            message_.reset(new std::string{msg});
+            return *this;
+        }
+
         // Create error body response
         HTTPResponse StandardErrorBuilder::build() {
 
@@ -40,9 +46,15 @@ namespace swarm {
             ss << "<html>";
             ss << "<head></head>";
             ss << "<body>"
-                << "<h1>" << status_.code() << ":" << status_.reason() << "</h1>"
-                << "<hr />"
-                << "<p>Powered by Swarm</p>"
+               << "<h1>Error HTTP " << status_.code() << "</h1>"
+               << "<hr />"
+               << "<p>" << status_.reason() << "</p>";
+
+            if (message_) {
+                ss << "<p>" << *message_ << "<p>";
+            }
+
+            ss << "<div>Powered by Swarm</div>"
                << "</body>";
             ss << "</html>";
 

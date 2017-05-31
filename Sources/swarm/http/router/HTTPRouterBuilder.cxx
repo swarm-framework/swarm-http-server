@@ -16,3 +16,41 @@
  */
 
 #include "HTTPRouterBuilder.hxx"
+
+#include "HTTPRouter.hxx"
+#include "HTTPRouterEntry.hxx"
+
+namespace swarm {
+    namespace http {
+        
+        // Register an HTTP process for an URL pattern and method
+        HTTPRouterBuilder & HTTPRouterBuilder::add(const HTTPMethod & method, const std::string & pattern, std::shared_ptr<HTTPProcess> process) {
+
+            if (process) {
+                // FIXME log existsing pattern
+                patterns_[pattern] = process;
+            }
+
+            return *this;
+        }
+        
+        // Create router
+        std::shared_ptr<HTTPRouter> HTTPRouterBuilder::build() {
+
+
+            std::shared_ptr<HTTPRouterEntry> rootEntry = std::shared_ptr<HTTPRouterEntry>(new HTTPRouterCharEntry{});
+
+            for (auto entry : patterns_) {
+                std::shared_ptr<HTTPRouterEntry> current = rootEntry;
+                for (auto c : entry.first) {
+                    current = current->add(c);
+                }
+                current->process(entry.second);
+            }
+
+            return std::shared_ptr<HTTPRouter>{
+                new HTTPRouter{rootEntry}
+            };
+        }
+    }
+}

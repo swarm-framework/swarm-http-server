@@ -18,10 +18,14 @@
 #include "HTTPServer.hxx"
 
 #include "HTTPServerDelegate.hxx"
-#include "swarm/http/process/HTTPProcess.hxx"
-#include "swarm/http/server/HTTPSession.hxx"
 #include "StandardErrorBuilder.hxx"
+#include "swarm/http/process/HTTPProcess.hxx"
+#include "swarm/http/router/HTTPRouter.hxx"
+#include "swarm/http/server/HTTPSession.hxx"
 #include <swarm/http/message/request/HTTPRequest.hxx>
+#include <boost/exception/exception.hpp>
+#include <boost/exception/diagnostic_information.hpp> 
+
 namespace swarm {
     namespace http {
 
@@ -29,6 +33,17 @@ namespace swarm {
         HTTPServer::HTTPServer(std::shared_ptr<HTTPServerDelegate> delegate, int port,
                                std::shared_ptr<HTTPRouter> router)
             : port_(port), delegate_(delegate), router_(router) {}
+
+        // Method to ens internal error
+        void HTTPServer::sendError(std::shared_ptr<HTTPSession> session, const std::string &message) {
+
+            // Create standard error
+            auto response =
+                StandardErrorBuilder{}.error(HTTPResponseStatus::INTERNAL_SERVER_ERROR).message(message).build();
+
+            // Send response
+            delegate_->send(*this, session, response);
+        }
 
         // Process requests
         void HTTPServer::process() {
@@ -43,22 +58,36 @@ namespace swarm {
                 // Create context
                 HTTPContext context{session->request()};
 
-                // Router FIXME Implement me with router
-                std::shared_ptr<HTTPProcess> process{};
-                if (process) {
+                try {
+                    // Find process form router
+                    std::shared_ptr<HTTPProcess> process = router_->find(context);
+                    if (process) {
 
-                    // Process request
-                    HTTPResponse response = process->process(context);
+                        // Process request
+                        HTTPResponse response = process->process(context);
 
-                    // Send response
-                    delegate_->send(*this, session, response);
-                } else {
+                        // Send response
+                        delegate_->send(*this, session, response);
+                    } else {
+
+                        // Create standard error
+                        auto response = StandardErrorBuilder{}
+                                            .error(HTTPResponseStatus::NOT_FOUND)
+                                            .message(context.request().uri())
+                                            .build();
+
+                        // Send response
+                        delegate_->send(*this, session, response);
+                    }
                     
+                }  catch (std::exception ex) {
+
                     // Create standard error
-                    auto response = StandardErrorBuilder{}.error(HTTPResponseStatus::NOT_FOUND).build();
-                    
-                    // Send response
-                    delegate_->send(*this, session, response);
+                    sendError(session, boost::diagnostic_information(ex, true));
+                } catch (...) {
+
+                    // Create standard error
+                    sendError(session, "Unknown error");
                 }
 
             } while (true);

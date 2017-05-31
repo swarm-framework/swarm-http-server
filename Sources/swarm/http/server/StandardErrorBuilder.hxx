@@ -34,12 +34,20 @@ namespace swarm {
             /// \brief Error status
             HTTPResponseStatus status_ = HTTPResponseStatus::NOT_FOUND;
             
+            /// \brief Message information
+            std::unique_ptr<std::string> message_;
+            
         public:
             
             /// \brief Set status code
             /// \param status Error status
             /// \return Current builder
             StandardErrorBuilder & error(HTTPResponseStatus status);
+            
+            /// \brif Set message
+            /// \param msg String message
+            /// \return Current builder
+            StandardErrorBuilder & message(const std::string & msg);
             
             /// \brief Create error body response
             /// \return Smart pointer on body

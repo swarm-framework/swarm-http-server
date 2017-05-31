@@ -24,7 +24,7 @@ namespace swarm {
     namespace http {
 
         class HTTPServer;
-        class HTTPSession;
+        struct HTTPSession;
         class HTTPResponse;
 
         /// \brief Server delegate for real implementation

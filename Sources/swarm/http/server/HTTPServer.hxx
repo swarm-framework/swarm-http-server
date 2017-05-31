@@ -23,8 +23,9 @@
 namespace swarm {
     namespace http {
 
-        class HTTPServerDelegate;
+        struct HTTPServerDelegate;
         class HTTPRouter;
+        struct HTTPSession;
         
         /// \brief Class HTTPServer
         class HTTPServer {
@@ -52,6 +53,12 @@ namespace swarm {
             int port() const {
                 return port_;
             }
+            
+        private:
+            
+            /// \brief Send error
+            /// \param message Message to display
+            void sendError(std::shared_ptr<HTTPSession> session, const std::string & message);
             
         public:
             

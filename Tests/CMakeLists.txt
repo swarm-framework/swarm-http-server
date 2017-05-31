@@ -21,6 +21,7 @@ include_directories(
 # Add sources files
 set (${PROJECT_NAME}_TEST_SOURCES
     main.cxx
+    swarm/http/router/HTTPRouterTest.cxx
 )
 
 # Create create executable

@@ -7,7 +7,9 @@ set (${PROJECT_NAME}_SOURCES
 	
     swarm/http/router/HTTPRouter.cxx swarm/http/router/HTTPRouter.hxx
     swarm/http/router/HTTPRouterBuilder.cxx swarm/http/router/HTTPRouterBuilder.hxx
-    
+	swarm/http/router/HTTPRouterChoice.cxx swarm/http/router/HTTPRouterChoice.hxx
+	swarm/http/router/HTTPRouterEntry.cxx swarm/http/router/HTTPRouterEntry.hxx
+
     swarm/http/service/HTTPService.cxx swarm/http/service/HTTPService.hxx
     swarm/http/service/HTTPServiceBuilder.cxx swarm/http/service/HTTPServiceBuilder.hxx
 
