@@ -25,7 +25,6 @@
 namespace swarm {
     namespace http {
         
-        
         // Process
         template<typename Result, typename Body>
         HTTPResponse HTTPServiceProcessWrapper<Result,Body>::process(HTTPContext &context) {
@@ -43,7 +42,10 @@ namespace swarm {
         public:
             
             HTTPServiceProcessWrapper(HTTPMethod method, const std::string & pattern, std::function<Result()> function) : HTTPServiceWrapper(method, pattern), function_(function) {
-                
+            
+                //  Create encoder
+                // FIXME Only JSON supported
+                auto encoder = mapping::JSonEncoder{};
             }
             
         public:
@@ -116,7 +118,7 @@ namespace swarm {
                 
                 // Launch funtion
                 function_();
-                
+            
                 return HTTPResponseBuilder{}.status(HTTPResponseStatus::NO_CONTENT).build();
             }
         };
