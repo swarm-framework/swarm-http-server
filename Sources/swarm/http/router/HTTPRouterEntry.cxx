@@ -111,11 +111,30 @@ namespace swarm {
         std::shared_ptr<HTTPRouterEntry> HTTPRouterWildCardEntry::add(char c) {
             auto entry = HTTPRouterEntry::add(c);
 
+            // If as parent
             if (parent_ != nullptr) {
+                
+                // Add choice to parent
                 parent_->add(c, entry);
             }
 
             return entry;
+        }
+
+        // Set process
+        void HTTPRouterWildCardEntry::process(std::shared_ptr<HTTPProcess> process) {
+
+            // Call mother process
+            HTTPRouterEntry::process(process);
+
+            // Test as parent
+            if (parent_ != nullptr) {
+
+                // Test if parent hasn't process
+                if (!parent_->final()) {
+                    parent_->process(process_);
+                }
+            }
         }
     }
 }

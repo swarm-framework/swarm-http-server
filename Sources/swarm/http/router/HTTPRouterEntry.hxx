@@ -78,7 +78,7 @@ namespace swarm {
 
             /// \brief Set process
             /// \param process New process
-            void process(std::shared_ptr<HTTPProcess> process) {
+            virtual void process(std::shared_ptr<HTTPProcess> process) {
                 this->process_ = process;
             }
 
@@ -155,6 +155,10 @@ namespace swarm {
             /// \param c Next char choice
             /// \return Pointer to next entry
             virtual std::shared_ptr<HTTPRouterEntry> add(char c) override;
+
+            /// \brief Set process
+            /// \param process New process
+            virtual void process(std::shared_ptr<HTTPProcess> process) override;
         };
     }
 }

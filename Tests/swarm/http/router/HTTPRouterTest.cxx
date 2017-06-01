@@ -56,7 +56,7 @@ TEST_CASE("HTTP router", "[router]") {
     test::test_router(*router, "/ws/v1/test2", "test2");
     test::test_router(*router, "/ws/v1/test3", "test*");
     test::test_router(*router, "/ws/v1/test*", "test*");
-    //test::test_router(*router, "/ws/v1/test", "test*");
+    test::test_router(*router, "/ws/v1/test", "test*");
     test::test_router(*router, "/ws/v1/test3/test", "test*/test");
     test::test_router(*router, "/ws/v1/test33", "test*");
     test::test_router(*router, "/ws/v1/test/test", "test*/test");
