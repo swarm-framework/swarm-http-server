@@ -24,7 +24,7 @@
 
 namespace swarm {
     namespace http {
-        
+
         // Process
         template<typename Result, typename Body>
         HTTPResponse HTTPServiceProcessWrapper<Result,Body>::process(HTTPContext &context) {
@@ -118,7 +118,7 @@ namespace swarm {
                 
                 // Launch funtion
                 function_();
-            
+
                 return HTTPResponseBuilder{}.status(HTTPResponseStatus::NO_CONTENT).build();
             }
         };
