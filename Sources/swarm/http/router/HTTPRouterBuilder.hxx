@@ -26,6 +26,7 @@ namespace swarm {
     namespace http {
 
         class HTTPRouter;
+        struct HTTPService;
         struct HTTPProcess;
 
         /// \brief Class HTTPRouterBuilder
@@ -43,6 +44,11 @@ namespace swarm {
             /// \param process HTTP process
             /// \return Current builder
             HTTPRouterBuilder &add(const HTTPMethod & method, const std::string &pattern, std::shared_ptr<HTTPProcess> process);
+            
+            /// \brief Register an HTTP REST Service
+            /// \param service Service to register
+            /// \return Current builder
+            HTTPRouterBuilder &add(std::shared_ptr<HTTPService> service);
 
           public:
             /// \brief Create router

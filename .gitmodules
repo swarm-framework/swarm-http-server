@@ -7,3 +7,6 @@
 [submodule "Dependencies/swarm-http-api"]
 	path = Dependencies/swarm-http-api
 	url = https://github.com/swarm-framework/swarm-http-api.git
+[submodule "Dependencies/swarm-mapping"]
+	path = Dependencies/swarm-mapping
+	url = https://github.com/swarm-framework/swarm-mapping.git

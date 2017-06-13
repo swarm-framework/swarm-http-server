@@ -15,10 +15,23 @@
  *
  */
 
+#ifndef SWARM_HTTP_HTTPSERVICEBUILDER_HXX
 #include "HTTPServiceBuilder.hxx"
+#endif
 
 namespace swarm {
     namespace http {
-
+        
+        // Create a service handler builder
+        template<class Result>
+        HTTPServiceHandlerBuilder<Result, void> HTTPServiceBuilder::service(HTTPMethod method, const std::string & pattern) {
+            return HTTPServiceHandlerBuilder<Result, void>{method, pattern};
+        }
+        
+        // Create a service handler builder
+        template<class Result, class Body>
+        HTTPServiceHandlerBuilder<Result, Body> HTTPServiceBuilder::service(HTTPMethod method, const std::string & pattern) {
+            return HTTPServiceHandlerBuilder<Result, Body>{method, pattern};
+        }
     }
 }

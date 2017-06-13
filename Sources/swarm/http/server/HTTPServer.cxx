@@ -19,9 +19,9 @@
 
 #include "HTTPServerDelegate.hxx"
 #include "StandardErrorBuilder.hxx"
-#include "swarm/http/process/HTTPProcess.hxx"
-#include "swarm/http/router/HTTPRouter.hxx"
-#include "swarm/http/server/HTTPSession.hxx"
+#include "../process/HTTPProcess.hxx"
+#include "../router/HTTPRouter.hxx"
+#include "../server/HTTPSession.hxx"
 #include <swarm/http/message/request/HTTPRequest.hxx>
 #include <boost/exception/exception.hpp>
 #include <boost/exception/diagnostic_information.hpp> 

@@ -15,10 +15,4 @@
  *
  */
 
-#include "HTTPServiceBuilder.hxx"
-
-namespace swarm {
-    namespace http {
-
-    }
-}
+#include "HTTPServiceHandlerBuilder.hxx"

@@ -19,6 +19,7 @@
 
 #include "HTTPRouter.hxx"
 #include "HTTPRouterEntry.hxx"
+#include "../service/HTTPService.hxx"
 
 namespace swarm {
     namespace http {
@@ -31,6 +32,15 @@ namespace swarm {
                 patterns_[pattern] = process;
             }
 
+            return *this;
+        }
+        
+        // Register an HTTP REST Service
+        HTTPRouterBuilder & HTTPRouterBuilder::add(std::shared_ptr<HTTPService> service) {
+            
+            // FIXME Implement me
+            add(service->method(), service->pattern(), service);
+            
             return *this;
         }
         
