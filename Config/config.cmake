@@ -31,7 +31,7 @@ function(find_dependencies packagName)
             add_subdirectory(${PROJECT_SOURCE_DIR}/Dependencies/${packagName})
             
             # Set include dir
-            set(cxx-log_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/Dependencies/${packagName}/Sources" PARENT_SCOPE)
+            set(${packagName}_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/Dependencies/${packagName}/Sources" PARENT_SCOPE)
             
         else()
         
