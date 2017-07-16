@@ -20,7 +20,7 @@
 #endif
 
 #include <swarm/http/message/response/HTTPResponseBuilder.hxx>
-#include <swarm/mapping/provider/json/JSonEncoder.hxx>
+//#include <swarm/mapping/provider/json/JSonEncoder.hxx>
 
 namespace swarm {
     namespace http {
@@ -45,7 +45,7 @@ namespace swarm {
             
                 //  Create encoder
                 // FIXME Only JSON supported
-                auto encoder = mapping::JSonEncoder{};
+                //auto encoder = mapping::JSonEncoder{};
             }
             
         public:

@@ -23,7 +23,7 @@
 #include <vector>
 
 #include "HTTPRouterChoice.hxx"
-#include <cxxlog/Logger.hxx>
+#include <cxx-log/Logger.hxx>
 
 namespace swarm {
     namespace http {

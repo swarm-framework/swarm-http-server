@@ -22,7 +22,7 @@
 #include "HTTPRouterEntry.hxx"
 #include <swarm/http/message/request/HTTPRequest.hxx>
 
-#include <cxxlog/Level.hxx>
+#include <cxx-log/Level.hxx>
 
 #define DEBUG 0
 
